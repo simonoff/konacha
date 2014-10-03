@@ -5,16 +5,16 @@ module Konacha
 
     def self.all(path = nil)
       paths = Konacha.spec_paths
-      paths = ENV["SPEC"].split(",") if ENV["SPEC"]
+      paths = ENV['SPEC'].split(',') if ENV['SPEC']
       paths = paths.map { |p| new(p) }
       if path.present?
-        paths = paths.select { |s| s.path.starts_with?(path) }.presence or raise NotFound
+        paths = paths.select { |s| s.path.starts_with?(path) }.presence or fail NotFound
       end
       paths
     end
 
     def self.find_by_name(name)
-      all.find { |s| s.asset_name == name } or raise NotFound
+      all.find { |s| s.asset_name == name } || fail(NotFound)
     end
 
     attr_accessor :path

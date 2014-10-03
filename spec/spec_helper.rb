@@ -1,19 +1,18 @@
 # In a real-world app, `rake konacha:serve` and `rake konacha:run` will use
 # the development environment, so we test with the development defaults.
 # In particular, it is important to test with `config.assets.debug = true`.
-ENV["RAILS_ENV"] = "development"
+ENV['RAILS_ENV'] = 'development'
 
-require File.expand_path("../dummy/config/environment.rb",  __FILE__)
-require "rspec/rails"
-require "rspec/autorun"
+require File.expand_path('../dummy/config/environment.rb',  __FILE__)
+require 'rspec/rails'
 
 # Preload to avoid occasional tilt warnings about thread safety
-require "coffee_script"
-require "ejs"
+require 'coffee_script'
+require 'ejs'
 
-require "capybara/rails"
-require "capybara/firebug"
-require "capybara/poltergeist"
+require 'capybara/rails'
+require 'capybara/firebug/rspec'
+require 'capybara/poltergeist'
 
 Capybara.configure do |config|
   config.default_selector = :css
@@ -25,7 +24,7 @@ Capybara.register_driver :poltergeist do |app|
   # Work around a bug in PhantomJS where `return true` from a
   # window.onerror handler does not prevent an uncaught exception
   # from being reported to Ruby.
-  Capybara::Poltergeist::Driver.new(app, :js_errors => false)
+  Capybara::Poltergeist::Driver.new(app, js_errors: false)
 end
 
 module Konacha
@@ -38,7 +37,7 @@ module Konacha
 end
 
 RSpec.configure do |config|
-  config.include Konacha::FeatureSpec, :type => :feature
+  config.include Konacha::FeatureSpec, type: :feature
 end
 
 Konacha.configure do |config|

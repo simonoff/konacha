@@ -1,12 +1,12 @@
 #!/usr/bin/env rake
 
-require "bundler/gem_tasks"
-require "rspec/core/rake_task"
+require 'bundler/gem_tasks'
+require 'rspec/core/rake_task'
 
 RSpec::Core::RakeTask.new :spec
 
 desc 'Build and copy Mocha and Chai assets from submodules into vendor/assets'
-task :assets => ['assets:build', 'assets:copy']
+task assets: ['assets:build', 'assets:copy']
 
 namespace :assets do
   task :build do
@@ -25,7 +25,7 @@ namespace :assets do
   end
 end
 
-task :default => :spec
+task default: :spec
 
 task :server do
   sh 'rackup -p 3500 config.ru'

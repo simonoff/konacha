@@ -1,4 +1,4 @@
-require "colorize"
+require 'colorize'
 
 module Konacha
   class Formatter
@@ -9,9 +9,11 @@ module Konacha
       @examples = []
     end
 
-    def start(expected_example_count=nil); end
-    def example_group_started(group); end
-    def example_started(example); end
+    def start(_expected_example_count = nil); end
+
+    def example_group_started(_group); end
+
+    def example_started(_example); end
 
     def example_passed(example)
       @examples << example
@@ -28,43 +30,45 @@ module Konacha
       io.write(with_color('P', :yellow))
     end
 
-    def example_group_finished(group); end
+    def example_group_finished(_group); end
+
     def stop; end
 
     def start_dump
-      io.puts ""
+      io.puts ''
     end
 
     def dump_pending
       pending_examples = examples.select(&:pending?)
       if pending_examples.present?
-        io.puts ""
-        io.puts(pending_examples.map {|example| pending_message(example)}.join("\n\n"))
+        io.puts ''
+        io.puts(pending_examples.map { |example| pending_message(example) }.join("\n\n"))
       end
     end
 
     def dump_failures
       failed_examples = examples.select(&:failed?)
       if failed_examples.present?
-        io.puts ""
-        io.puts(failed_examples.map {|example| failure_message(example)}.join("\n\n"))
+        io.puts ''
+        io.puts(failed_examples.map { |example| failure_message(example) }.join("\n\n"))
       end
     end
 
     def dump_summary(duration, example_count, failure_count, pending_count)
-      seconds = "%.2f" % duration
-      io.puts ""
+      seconds = '%.2f' % duration
+      io.puts ''
       io.puts "Finished in #{seconds} seconds"
       io.puts "#{example_count} examples, #{failure_count} failed, #{pending_count} pending"
     end
 
-    def seed(seed); end
+    def seed(_seed); end
 
     def close
       io.close if IO === io && io != $stdout
     end
 
     private
+
     def failure_message(example)
       msg = []
       msg << "  Failed: #{example.full_description}"

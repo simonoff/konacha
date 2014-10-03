@@ -1,5 +1,5 @@
-require "konacha/reporter/example"
-require "konacha/reporter/example_group"
+require 'konacha/reporter/example'
+require 'konacha/reporter/example_group'
 
 # The Konacha Reporter implements the same protocol as the RSpec Reporter.
 # More details on the RSpec Reporter protocol are available in the rspec-core
@@ -15,22 +15,20 @@ module Konacha
       @examples, @groups = {}, {}
     end
 
-    def start(expected_example_count=nil)
+    def start(expected_example_count = nil)
       @start_time = Time.now
       process_event :start, expected_example_count
     end
 
-    def finish(seed=nil)
-      begin
-        stop
-        process_event :start_dump
-        process_event :dump_pending
-        process_event :dump_failures
-        process_event :dump_summary, duration, example_count, failure_count, pending_count
-        process_event :seed, seed if seed
-      ensure
-        process_event :close
-      end
+    def finish(seed = nil)
+      stop
+      process_event :start_dump
+      process_event :dump_pending
+      process_event :dump_failures
+      process_event :dump_summary, duration, example_count, failure_count, pending_count
+      process_event :seed, seed if seed
+    ensure
+      process_event :close
     end
 
     def stop
@@ -80,6 +78,7 @@ module Konacha
     end
 
     private
+
     def event_object(event)
       update_or_create_object(event['data'], event['type'])
     end
@@ -88,7 +87,7 @@ module Konacha
       start(event['testCount'])
     end
 
-    def handle_mocha_end(event)
+    def handle_mocha_end(_event)
       finish
     end
 

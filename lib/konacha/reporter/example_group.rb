@@ -1,4 +1,4 @@
-require "konacha/reporter/metadata"
+require 'konacha/reporter/metadata'
 
 # The ExampleGroup class mimics the public interface of RSpec::Core::ExampleGroup.
 
@@ -15,7 +15,7 @@ module Konacha
         end
       end
 
-      delegate :full_description, :description, :file_path, :described_class, :to => :metadata
+      delegate :full_description, :description, :file_path, :described_class, to: :metadata
 
       alias_method :display_name, :description
       alias_method :example_group, :parent

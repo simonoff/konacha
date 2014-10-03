@@ -1,4 +1,4 @@
-require "konacha/reporter/metadata"
+require 'konacha/reporter/metadata'
 
 # The Example class mimics the public interface of RSpec::Core::Example.
 
@@ -15,18 +15,18 @@ module Konacha
         end
       end
 
-      delegate :full_description, :description, :location, :file_path, :line_number, :pending, :pending_message, :exception, :execution_result, :to => :metadata
+      delegate :full_description, :description, :location, :file_path, :line_number, :pending, :pending_message, :exception, :execution_result, to: :metadata
 
       alias_method :pending?, :pending
       alias_method :options, :metadata
       alias_method :example_group, :parent
 
       def passed?
-        execution_result[:status] == "passed"
+        execution_result[:status] == 'passed'
       end
 
       def failed?
-        execution_result[:status] == "failed"
+        execution_result[:status] == 'failed'
       end
 
       def update_metadata(data)

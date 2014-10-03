@@ -1,4 +1,4 @@
-require "capybara"
+require 'capybara'
 
 module Konacha
   class Runner

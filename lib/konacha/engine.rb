@@ -14,7 +14,7 @@ module Konacha
           run app.assets
         end
 
-        map "/" do
+        map '/' do
           run Engine
         end
       end
@@ -30,10 +30,10 @@ module Konacha
       end
     end
 
-    initializer "konacha.environment" do |app|
+    initializer 'konacha.environment' do |app|
       options = app.config.konacha
 
-      options.spec_dir     ||= "spec/javascripts"
+      options.spec_dir     ||= 'spec/javascripts'
       options.spec_matcher ||= /_spec\.|_test\./
       options.port         ||= 3500
       options.application  ||= self.class.application(app)
@@ -45,7 +45,8 @@ module Konacha
       options.formatters   ||= self.class.formatters
 
       app.config.assets.paths << app.root.join(options.spec_dir).to_s
-      app.config.assets.precompile << lambda{|path| path =~ %r{\.(js|coffee)$} }
+      app.config.assets.precompile << 'konacha.css'
+      app.config.assets.precompile << lambda { |path| path =~ %r{\.(js|coffee)$} }
     end
   end
 end
